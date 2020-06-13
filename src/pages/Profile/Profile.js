@@ -6,7 +6,9 @@ import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import App from '../../App';
 
 import { 
     AppBar,
@@ -48,12 +50,15 @@ export default function Profile() {
                         <Button variant="outlined" color="inherit" className={classes.space}><strong>Options</strong></Button>
                         </div>}
                    position="bottom right">{close => (<div>Content here<a className="close" onClick={close}>&times;</a></div>)}
-                   <Button fullWidth="true" size='large'><strong>Main Page</strong></Button>
+                   <Button fullWidth="true" size='large'
+                   onClick={() => {
+                    ReactDOM.render(<App />, document.getElementById('root'));
+                  }}><strong>Main Page</strong></Button>
                    <Popup trigger={<div>
                         <Button fullWidth="true" size='large' className={classes.space}><strong>Settings</strong></Button>
                         </div>}
                         position="left top">{close => (<div>Content here<a className="close" onClick={close}>&times;</a></div>)}
-                        <Button fullWidth="true" size='large'><strong>Set1</strong></Button>
+                        <Button fullWidth="true" size='large'><strong>Set1</strong>zz</Button>
                         <Button fullWidth="true" size='large'><strong>Set2</strong></Button>
                         <Button fullWidth="true" size='large'><strong>Set3</strong></Button>
                         <Button fullWidth="true" size='large'><strong>Set4</strong></Button>

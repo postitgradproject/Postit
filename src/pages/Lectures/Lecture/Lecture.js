@@ -12,7 +12,7 @@ import {
 const Lecture = () => {
     return (
         <div>
-            SINANCAVDAR
+           {/*SINANCAVDAR*/} 
         </div>
     );
 };

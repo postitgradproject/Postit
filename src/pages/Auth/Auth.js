@@ -20,6 +20,22 @@ const axios = require('axios').default;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const useStyles = makeStyles(theme => ({
     outline: {
         backgroundColor: "#88f",
@@ -64,8 +80,8 @@ const PageShell = (Page, previous) => {
 const Auth = (props) => {
     const classes = useStyles();
     const [values, setValues] = useState({
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         mail: '',
         accountType: '',
         username: '',
@@ -75,88 +91,44 @@ const Auth = (props) => {
     const [rightButton, setRightButton] = useState("SIGNUP");
     
     
-    const handleChangeFirstName = firstname => event => {
-        setValues({...values, [firstname]: event.target.value});
-    };  
-
-    const handleChangeLastName = lastname => event => {
-        setValues({...values, [lastname]: event.target.value});
-    };  
-
-    const handleChangeMail = mail => event => {
-        setValues({...values, [mail]: event.target.value});
-    };  
-
-    const handleChangeAccountType = accountType => event => {
-        setValues({...values, [accountType]: event.target.value});
-    };  
-
-    const handleChangeUsername = username => event => {
-        setValues({...values, [username]: event.target.value});
-    };  
-    
-    const handleChangePassword = password => event => {
-        setValues({...values, [password]: event.target.value});
+    const handleChange = name => event => {
+        setValues({...values, [name]: event.target.value});
     };  
 
     const signupButtons = (
         <div>
             <TextField 
-                id="outlined-firstName"
+                id="outlined-name"
                 label="Firstname"
                 margin="normal"
                 variant="outlined"
                 fullWidth="true"
-                //onChange={handleChangeFirstName('firstName')}
-                onChange={(event,newValue) => this.setState({Firstname:newValue})}
-
+                onChange={handleChange('firstName')}
             />
             <TextField 
-                id="outlined-LastName"
+                id="outlined-name"
                 label="Lastname"
                 margin="normal"
                 variant="outlined"
                 fullWidth="true"
-                //onChange={handleChangeLastName('lastName')}
-                onChange={(event,newValue) => this.setState({lastName:newValue})}
-
+                onChange={handleChange('lastName')}
             />
             <TextField 
-                id="outlined-mail"
+                id="outlined-name"
                 label="Mail"
                 margin="normal"
                 variant="outlined"
                 fullWidth="true"
-                //onChange={handleChangeMail('mail')}
-                onChange={(event,newValue) => this.setState({mail:newValue})}
-
+                onChange={handleChange('mail')}
             />
             <TextField 
-                id="outlined-accountType"
+                id="outlined-name"
                 label="Account Type"
                 margin="normal"
                 variant="outlined"
                 fullWidth="true"
-                //onChange={handleChangeAccountType('accountType')}
-                onChange={(event,newValue) => this.setState({accountType:newValue})}
-
+                onChange={handleChange('accountType')}
             />
-            {/* <TextField 
-                id="outlined-name"
-                label="Username"
-                margin="normal"
-                variant="outlined"
-                fullWidth="true"
-                onChange={handleChangeUsername('username')}
-            />
-            <TextField 
-                id="outlined-name"
-                label="Password"
-                margin="normal"
-                variant="outlined"
-                fullWidth="true"
-                onChange={handleChangePassword('password')}
-            /> */}
         </div>
     );
 
@@ -173,22 +145,20 @@ const Auth = (props) => {
                 <div className={classes.input}>
                     {auth}
                     <TextField 
-                        id="outlined-username"
+                        id="outlined-name"
                         label="Username"
                         margin="normal"
                         variant="outlined"
                         fullWidth="true"
-                        //onChange={handleChangeUsername('username')}
-                        //onChange={(event,newValue) => this.setState({username:newValue})}
+                        onChange={handleChange('username')}
                     />
                     <TextField 
-                        id="outlined-password"
+                        id="outlined-name"
                         label="Password"
                         margin="normal"
                         variant="outlined"
                         fullWidth="true"
-                        //onChange={handleChangePassword('password')}
-                        //onChange={(event,newValue) => this.setState({password:newValue})}
+                        onChange={handleChange('password')}
                     />
                 </div>
                 <div style={{display: 'flex' ,justifyContent: 'center'}}>
@@ -199,46 +169,28 @@ const Auth = (props) => {
                                 color="secondary" 
                                 className={classes.button} 
                                 onClick={() => {
-                                    if(rightButton === "SIGNUP")
-                                    {
-
-                                    console.log("This is the username from frontend:" + values.username); 
-                                    axios.get('http://localhost:3000/signin',{
+                                    console.log("This is the username:" + values.username);
+                                    console.log(values.password);
+                                    console.log("GOR BUNU HOCAM");
+                                    axios.get('http://localhost:5000/signin',{
                                         params: {
                                          username:values.username,
+                                         
                                          password: values.password                                        }
-                                    })
-
+                                     })
+                            
+                                    
                                     .then(res => console.log(res.data));
                                     console.log(values) 
                                     setValues({
-                                        firstname: '',
-                                        lastname: '',
+                                        firstName: '',
+                                        lastName: '',
                                         mail: '',
                                         accountType: '',
                                         username: '',
                                         password: ''
                                     });
-                                    }
-                                    else {
-                                        console.log("POST DEBUG");
-                                        console.log("This is the firstName:" + values.firstname); 
-                                        axios.post("http://localhost:3000/user",{ 
-                                            
-                                            params: {
-                                                firstname: values.firstname,
-                                                lastname: values.lastname,
-                                                mail: values.mail,
-                                                accountType: values.accountType,
-                                                username: values.username,
-                                                password: values.password
-                                            }})
-                                    .then(res => console.log(res.data));
-                                    console.log(values) 
-                                   
-                                    }
                                     ReactDOM.render(<App />, document.getElementById('root'));
-                                    
                                 }}
                             >      
                                 SUBMIT                 

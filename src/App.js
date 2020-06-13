@@ -6,7 +6,7 @@ import Popup from "reactjs-popup";
 import ReactDOM from 'react-dom';
 
 // PROJECT IMPORTS
-import './App.css';
+//import './App.css';
 import Courses from './pages/Courses/Courses';
 import Home from './pages/Home/Home';
 import Profile from './pages/Profile/Profile';
@@ -22,14 +22,7 @@ import Tab from '@material-ui/core/Tab';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-
 import avatar from "./images/jason-voorhees.png";
-
-
-// SomeThemes
-
 
 const useStyles = makeStyles(theme => ({
   space: {
@@ -92,7 +85,7 @@ function App() {
               >
                 <Grid item>
                   <Typography variant="h6" className={classes.title}>
-                    <strong>Post-IT</strong>
+                    <strong>POST-IT</strong>
                   </Typography>
                 </Grid>
                 <Grid item>
