@@ -91,14 +91,14 @@ export default function Surveys() {
     const classes = useStyles();
     return (
         <div>
-            <Survey title="title" author='author'/>
-            <Survey title="title2" author='author2'>Efe Berk</Survey>
-            <Survey title="title" author='author'/>
-            <Survey title="title2" author='author2'>Efe Berk</Survey>
-            <Survey title="title" author='author'/>
-            <Survey title="title2" author='author2'>Efe Berk</Survey>
-            <Survey title="title" author='author'/>
-            <Survey title="title2" author='author2'>Efe Berk</Survey>
+            <Survey title="Exploring Arda Andirin's Brain" author='Efe Berk Ergulec'></Survey>
+            <Survey title="CMPE 472 Satisfaction Survey" author='Emin Kugu'></Survey>
+            <Survey title="Distance Education Satisfaction Survey" author='no one'/>
+            <Survey title="Effects of the Last of Us" author='Edipcan Ozer'/>
+            <Survey title="Human-Computer Interaction" author='Sinan Cavdar'/>
+            <Survey title="Unexpected Behavior of Animals in the South Africa" author='Arda Andirin'></Survey>
+            <Survey title="Basketball Fundamentals" author='Larry Bird'/>
+            <Survey title="How did COVID 19 changed your daily routine?" author='Nilay Meseci'></Survey>
             <div className={classes.addButton} >
                 <Popup 
                     trigger={
