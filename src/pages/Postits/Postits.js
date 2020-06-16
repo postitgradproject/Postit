@@ -3,22 +3,17 @@ import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
 import { TransitionGroup } from 'react-transition-group';
 import { makeStyles } from '@material-ui/core/styles';
 import AutoScale from 'react-auto-scale';
+import './Postit/Style.css';
 
 import Avatar from '@material-ui/core/Avatar';
 import Popup from "reactjs-popup";
 import ReactDOM from 'react-dom';
-//import ReactScrollbar from 'react-scrollbar-js';
 
-import Courses from '../Courses/Courses';
-import Home from '../../pages/Home/Home';
-import Profile from '../../pages/Profile/Profile';
 import Slides from '../../pages/Slides/Slides';
 
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
@@ -26,6 +21,8 @@ import avatar from "../../images/jason-voorhees.png";
 
 import { Redirect } from 'react-router-dom';
 import App from '../../App';
+
+const axios = require('axios').default;
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -53,7 +50,7 @@ const useStyles = makeStyles(theme => ({
         
     },
     td1: {
-        width: 950,
+        width: 1075,
         heigth: 100,
         borderTopWidth: 1, 
         borderColor: 'black',
@@ -61,27 +58,24 @@ const useStyles = makeStyles(theme => ({
         align: "center",
     },
     td2: {
-        width: 820,
+        width: 445,
         heigth: 100,
         borderTopWidth: 1, 
         borderColor: 'black',
         borderStyle: 'solid',
     },
     div1: {
-        width: 820,
-        heigth: 100,
         align: "right",
-        
     },
     td3: {
-        width: 950,
+        width: 825,
         heigth: 100,
         borderTopWidth: 1, 
         borderColor: 'black',
         borderStyle: 'solid',
     },
     td4: {
-        width: 950,
+        width: 825,
         heigth: 130,
         borderTopWidth: 1, 
         borderColor: 'black',
@@ -89,17 +83,25 @@ const useStyles = makeStyles(theme => ({
     },
     textarea1: {
         height: 220,
-        width: 950,
+        width: 1075,
         placeholder: "Write your own notes here...",
     },
+    textarea2: {
+      height: 220,
+      width: 445,
+      placeholder: "Write your own notes here...",
+  },
+  textarea3: {
+    height: 40,
+    width: 650,
+    placeholder: "Write your own notes here...",
+  },
     td5: {
-        width: 820,
+        width: 695,
         height: 230,
         align: "center",
     },
     slide: {
-      width: 950,
-      height: 800,
       borderColor: '#000',
   },
     buttonEnhance: {
@@ -122,8 +124,14 @@ const useStyles = makeStyles(theme => ({
         width: 100,
         heigth: 40,
         backgroundColor: 'lightgray',
+    },
+    buttonEdit: {
+      width: 40,
+      heigth: 100,
+      backgroundColor: 'lightgray',
     }
 }));
+
 
 const PageShell = (Page, previous) => {
     return props => (
@@ -147,14 +155,12 @@ const PageShell = (Page, previous) => {
     const classes = useStyles();
     //const { data } = this.props.location
     //"file:///E:/Concept%20of%20Programming%20Language/scope.pdf" src yanına yaz
- 
   
     function openFullscreen() 
     {
       var elem = document.getElementById("slide");
       var view = document.getElementById("view");
-      
-      //var comment = document.getElementById("comments");
+
       if (elem.requestFullscreen) {
           elem.requestFullscreen();
       } else if (elem.mozRequestFullScreen) { /* Firefox */
@@ -164,20 +170,15 @@ const PageShell = (Page, previous) => {
       } else if (elem.msRequestFullscreen) { /* IE/Edge */
           elem.msRequestFullscreen();
       }
-      //elem.width = 1515;
-      //elem.height = 840;
-      view.width = 1515;
-      view.height = 840;
-      //comment.cols = 207;
+
+      view.width = 1800;
+      view.height = 1000;
 
       document.onkeydown = function (evt) {     //2 ESCAPE KÜÇÜLTÜR
           evt = evt || window.event;
           if (evt.keyCode == 27) {
-              //elem.width = 900;
-              //elem.height = 850;
-              view.width = 950;
+              view.width = 1075;
               view.height = 800;
-              //comment.cols = 123;
           }
       };
   }
@@ -215,30 +216,81 @@ const PageShell = (Page, previous) => {
             document.getElementById("green").style.background = "#ADCB4A";
           };
       }
+
+      function update()
+      {
+        document.getElementById("Button").disabled = true;
+        var areas = document.getElementsByClassName("txt"),
+        tab = [], liIndex;  
+        var i = 0;   
+        for(var x = 0; x < areas.length; x++)
+        {
+          tab.push(areas[x].innerHTML);
+        }
+        for(i = 0; i < areas.length; i++)
+        {
+          areas[i].onclick = function()
+          {
+            document.getElementById("Button").disabled = false;
+            liIndex = tab.indexOf(this.innerHTML);
+            document.getElementById("Button").onclick = function()
+            {
+              areas[liIndex].innerHTML = document.getElementById("edit").value+"<span class=\"close\">X</span>";
+              deleteIt();
+              update();
+              document.getElementById("Button").disabled = true;
+            }
+          }
+        }
+      }
+      function deleteIt()
+      {
+        var closebtns = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < closebtns.length; i++) {
+          closebtns[i].addEventListener("click", function() {
+          this.parentElement.style.display = 'none';
+          });
+        }
+      }
       function publishPost()
       {
         var notes = document.getElementById("comments").value;
         
         if(yellow == 1)
         {
-          var post = "<textarea className={classes.textarea1} style=\"background-color: #FAFA90;\" rows=\"14\" cols=\"80\">"+notes+"</textarea>";
+          var post = "<div class=\"txt\" className={classes.textarea2} style=\"background-color: #FAFA90;\" rows=\"14\" cols=\"75\">"+
+          notes+
+          "<span class=\"close\">X</span></div>";
         }
         else if(red == 1)
         {
-          var post = "<textarea className={classes.textarea1} style=\"background-color: #FF9999;\" rows=\"14\" cols=\"80\">"+notes+"</textarea>";
+          var post = "<div class=\"txt\" className={classes.textarea2} style=\"background-color: #FF9999;\" rows=\"14\" cols=\"75\">"+
+          notes+
+          "<span class=\"close\">X</span></div>";
         }
         else if(blue == 1)
         {
-          var post = "<textarea className={classes.textarea1} style=\"background-color: #99CCFF;\" rows=\"14\" cols=\"80\">"+notes+"</textarea>";
+          var post = "<div class=\"txt\" className={classes.textarea2} style=\"background-color: #99CCFF;\" rows=\"14\" cols=\"75\">"+
+          notes+
+          "<span class=\"close\">X</span></div>";
         }
         else if(green == 1)
         {
-          var post = "<textarea className={classes.textarea1} style=\"background-color: #CCFFCC;\" rows=\"14\" cols=\"80\">"+notes+"</textarea>";
+          var post = "<div class=\"txt\" className={classes.textarea2} style=\"background-color: #CCFFCC;\" rows=\"14\" cols=\"75\">"+
+          notes+
+          "<span class=\"close\">X</span></div>";
         }
         if (notes != "" && notes.length >= 20) {
           arr.push(post);
           document.getElementById("questions").innerHTML += arr[i];
           i++;
+          axios.post('http://localhost:3001/postits', {
+            //owner: "",
+            question: notes,
+            //replies: "",
+            //value:
+        })
         }
         if (notes.length >= 20) {
             document.getElementById("comments").value = "";
@@ -246,6 +298,8 @@ const PageShell = (Page, previous) => {
         if (notes.length < 20) {
             alert("YOU HAVE TO USE AT LEAST 20 CHARACTERS !");
         }
+        update()
+        deleteIt()
       }
       
       return (
@@ -289,14 +343,15 @@ const PageShell = (Page, previous) => {
   <table className={classes.table} id="myTable">
         <tr>
             <td id="slide" className={classes.td1}>
-            <iframe className={classes.slide} src= "https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%21267&amp;authkey=AHh92H2j7CR7pps&amp;em=2&amp;wdAr=1.3333333333333333" id="view" frameborder="0"></iframe>
+            <iframe className={classes.slide}  width="1075" height="800" src= "https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%211605&amp;authkey=APGWM1YxDpE3B7s&amp;em=2&amp;wdAr=1.3333333333333333" id="view" frameborder="0"></iframe>
             </td>
             <td class="nodec" className={classes.td2}>
                 <div className={classes.div1} id="questions"></div>
             </td>
         </tr>
         <tr>
-            <td className={classes.td3}><Button variant = "outlined" className={classes.buttonEnhance} onClick={openFullscreen}>Enhance</Button></td>
+            <td className={classes.td3}><Button variant = "outlined" className={classes.buttonEnhance} onClick={openFullscreen}>Hide</Button></td>
+            <td className={classes.td3}><textarea id="edit" className={classes.textarea3}></textarea><button id="Button" className={classes.buttonEdit} disabled>Edit</button></td>
         </tr>
         <tr>
             <td className={classes.td4}><textarea id="comments" class="OwnNotes" className={classes.textarea1} placeholder="Write your own notes here..."></textarea></td>
@@ -316,7 +371,7 @@ const PageShell = (Page, previous) => {
        
                         <td className={classes.td5} align="left">
                             <Button variant = "outlined" className={classes.button1}>Save</Button><br />
-                            <Button variant = "outlined" className={classes.button2}>Previous Notes</Button><br />
+                            <Button variant = "outlined" className={classes.button2} onClick={update}>Previous Notes</Button><br />
                             <Button variant = "outlined" className={classes.button3} onClick={publishPost}>Publish</Button>
                         </td>
                     </tr>

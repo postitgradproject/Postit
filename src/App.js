@@ -11,6 +11,7 @@ import Courses from './pages/Courses/Courses';
 import Home from './pages/Home/Home';
 import Profile from './pages/Profile/Profile';
 import Surveys from './pages/Surveys/Surveys';
+import Auth from'./pages/Auth/Auth';
 
 // MATERIAL UI IMPORTS
 import { makeStyles } from '@material-ui/core/styles';
@@ -117,6 +118,9 @@ function App() {
                       size='large' 
                       variant='contained' 
                       color='secondary' 
+                      onClick={() => {
+                        ReactDOM.render(<Auth />, document.getElementById('root'));
+                      }}
                       ><strong>Log Out</strong></Button>
                     </Popup>
                   </div>    

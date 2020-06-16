@@ -19,23 +19,6 @@ import App from '../../App';
 const axios = require('axios').default;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const useStyles = makeStyles(theme => ({
     outline: {
         backgroundColor: "#88f",
@@ -158,6 +141,7 @@ const Auth = (props) => {
                         margin="normal"
                         variant="outlined"
                         fullWidth="true"
+                        type = "password"
                         onChange={handleChange('password')}
                     />
                 </div>
@@ -169,10 +153,10 @@ const Auth = (props) => {
                                 color="secondary" 
                                 className={classes.button} 
                                 onClick={() => {
+                                    if(rightButton === "SIGNUP") {
                                     console.log("This is the username:" + values.username);
                                     console.log(values.password);
-                                    console.log("GOR BUNU HOCAM");
-                                    axios.get('http://localhost:5000/signin',{
+                                    axios.get('http://localhost:3001/signin',{
                                         params: {
                                          username:values.username,
                                          
@@ -191,7 +175,23 @@ const Auth = (props) => {
                                         password: ''
                                     });
                                     ReactDOM.render(<App />, document.getElementById('root'));
-                                }}
+                                }
+                            
+                                else {
+                                    console.log("SIGNUP PART");
+                                    axios.post('htttp://localhost:3001/user', {
+                                        
+                                        username : values.username,
+                                        firstname : values.firstName,
+                                        lastname: values.lastName,
+                                        password: values.password,
+                                        accountyype: values.accountType,
+                                        mail: values.mail
+                                        
+                                    })
+                                }
+                            }
+                        }
                             >      
                                 SUBMIT                 
                             </Button>
@@ -199,25 +199,23 @@ const Auth = (props) => {
                         <Button 
                             variant="outlined" 
                             color="inherit" 
-                            className={classes.button} 
+                            className={classes.button}
+                            style={{width: 100}}
                             onClick={() => {
                                 if(rightButton === "SIGNUP") {
-
                                     setAuth(signupButtons);
                                     setRightButton("LOGIN");
                                 }
                                 else {
-                                    
                                     setAuth(null);
                                     setRightButton("SIGNUP");
                                 }
                             }}
                             >
-                            <p>{rightButton.buttonName}</p>
+                            {rightButton}
                         </Button>
                         <Route exact strict path="/home" component={App} className={classes.app}/>
                     </BrowserRouter>
-                    {rightButton}
                 </div>
             </div>
         </div>

@@ -60,23 +60,6 @@ const Course = (props) => {
                     <h1>{props.lectureCode}</h1>
                     <p><strong>Lecturer: </strong>{props.lecturerName}</p>
                 </div>
-                <div>
-                    <Link to="/lectures">
-                    <Popup trigger={<div>
-                        <Button className={classes.button}>SEE LECTURES</Button>
-                        </div>}
-                        position="bottom left">{close => (<div>Content here<a className="close" onClick={close}>&times;</a></div>)}
-                        <ButtonGroup>
-                            <Button variant="outlined" color="primary" aria-label="add" >
-                                <strong>ADD</strong>
-                            </Button>
-                            <Button variant="outlined" color="secondary" aria-label="add" >
-                                <strong>CANCEL</strong>
-                            </Button>    
-                        </ButtonGroup>  
-                    </Popup> 
-                    </Link>
-                </div>
                 <Route path="/lectures" component={PageShell(Lectures)}/>
             </BrowserRouter>    
             <BrowserRouter>
@@ -84,7 +67,7 @@ const Course = (props) => {
                    onClick={() => {
                     ReactDOM.render(<Slides />, document.getElementById('root'));
                   }}>VIEW SLIDES</Button>
-            </BrowserRouter>    
+            </BrowserRouter>
         </div>
     );
 }

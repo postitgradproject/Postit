@@ -7,11 +7,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Popup from "reactjs-popup";
 import ReactDOM from 'react-dom';
 
-import Courses from '../Courses/Courses';
-import Home from '../../pages/Home/Home';
-import Profile from '../../pages/Profile/Profile';
-import Surveys from '../../pages/Surveys/Surveys';
 import Postits from '../../pages/Postits/Postits'
+import Postits2 from '../../pages/Postits/Postits2'
+import Postits3 from '../../pages/Postits/Postits3'
 
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -121,29 +119,40 @@ const PageShell = (Page, previous) => {
              </Toolbar>
              </AppBar>
  
-             <table align="center" id="table" border="1">
+             <table align="center" id="table" border="1" border-collapse="collapse" width="90%">
          <tr>
-             <td id="slide">
+             <td width="20%" align="center" id="slide">
                
-                  <iframe src="https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%21267&amp;authkey=AHh92H2j7CR7pps&amp;em=2&amp;wdAr=1.3333333333333333"
+                  <iframe src="https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%211605&amp;authkey=APGWM1YxDpE3B7s&amp;em=2&amp;wdAr=1.3333333333333333"
                      ref={textInput} frameborder="0">
                      Bu <a target="_blank"
                       href="https://office.com/webapps">Office Online</a> tarafından sağlanan eklenmiş bir <a target="_blank" href="https://office.com">Microsoft Office</a> belgesidir.
                   </iframe>
              </td>
-             <td id="col">
-                 <Button id="0" onClick={enhance}>https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%21267&amp;authkey=AHh92H2j7CR7pps&amp;em=2&amp;wdAr=1.3333333333333333</Button>
+             <td align="center" id="col">
+                 <Button id="0" onClick={() => ReactDOM.render(<Postits />, document.getElementById('root'))}><h2><b>Introduction</b></h2></Button>
              </td>
          </tr>
          <tr>
-             <td id="slide">
-                 <iframe src="https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%21300&amp;authkey=APgAmJm4rCe5emY&amp;em=2&amp;wdAr=1.2941176470588236" 
+             <td width="20%" align="center" id="slide">
+                 <iframe src="https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%211606&amp;authkey=AOMK5fK1es3sJiE&amp;em=2&amp;wdAr=1.3333333333333333" 
                     ref={textInput} frameborder="0">
                  Bu <a target="_blank" href="https://office.com/webapps">Office</a> tarafından sağlanan eklenmiş bir <a target="_blank" href="https://office.com">Microsoft Office</a> belgesidir.
                  </iframe>
              </td>
-             <td id="col">
-                 <Button id="0" onClick={enhance}>https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%21300&amp;authkey=APgAmJm4rCe5emY&amp;em=2&amp;wdAr=1.2941176470588236</Button>
+             <td align="center" id="col">
+                 <Button id="0" onClick={() => ReactDOM.render(<Postits2 />, document.getElementById('root'))}><h2><b>Documentation</b></h2></Button>
+             </td>
+         </tr>
+         <tr>
+             <td width="20%" align="center" id="slide">
+                 <iframe src="https://onedrive.live.com/embed?cid=B753023CFEF00415&amp;resid=B753023CFEF00415%211607&amp;authkey=AH9A3dFghRWNDok&amp;em=2&amp;wdAr=1.3333333333333333" 
+                    ref={textInput} frameborder="0">
+                 Bu <a target="_blank" href="https://office.com/webapps">Office</a> tarafından sağlanan eklenmiş bir <a target="_blank" href="https://office.com">Microsoft Office</a> belgesidir.
+                 </iframe>
+             </td>
+             <td  align="center" id="col">
+                 <Button id="0" onClick={() => ReactDOM.render(<Postits3 />, document.getElementById('root'))}><h2><b>Tolerant Retrieval</b></h2></Button>
              </td>
          </tr>
          </table>
