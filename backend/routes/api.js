@@ -299,4 +299,15 @@ router.get('/allpostits', (req,res) => {
 })
 
 
+router.post('/postit_remove',(req,res) =>{
+	console.log("Removed postit is:", req.body.question);
+	postit.deleteOne({
+	  question:req.body.question
+	})})
 
+
+router.post('/postit_update', (req,res) => {
+	postit.updateOne({
+		question:req.body.question}, {$push: {question:req.body.question}
+	})
+})

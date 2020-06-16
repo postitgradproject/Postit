@@ -247,8 +247,17 @@ const PageShell = (Page, previous) => {
       {
         var closebtns = document.getElementsByClassName("close");
         var i;
+
+        
         for (i = 0; i < closebtns.length; i++) {
           closebtns[i].addEventListener("click", function() {
+            var str1;
+            var index = this.parentElement.innerHTML.indexOf('<');
+            str1 = this.parentElement.innerHTML.substr(0, index);
+            axios.post('http://localhost:3001/postit_remove', {
+              question: str1
+            })
+
           this.parentElement.style.display = 'none';
           });
         }
